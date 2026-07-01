@@ -160,6 +160,50 @@
   color: oklch(0.85 0.01 285);
   background: transparent;
 }
+.light .hljs {
+  color: oklch(0.27 0.01 285);
+}
+.light .hljs-comment,
+.light .hljs-quote,
+.light .hljs-meta {
+  color: oklch(0.44 0.01 285);
+}
+.light .hljs-keyword,
+.light .hljs-selector-tag,
+.light .hljs-literal,
+.light .hljs-section,
+.light .hljs-link {
+  color: oklch(0.6 0.16 300);
+}
+.light .hljs-function .hljs-title,
+.light .hljs-title.function_,
+.light .hljs-title {
+  color: oklch(0.46 0.14 230);
+}
+.light .hljs-string,
+.light .hljs-attr,
+.light .hljs-symbol,
+.light .hljs-bullet,
+.light .hljs-addition {
+  color: oklch(0.46 0.16 155);
+}
+.light .hljs-number,
+.light .hljs-built_in,
+.light .hljs-builtin-name,
+.light .hljs-type {
+  color: oklch(0.44 0.16 75);
+}
+.light .hljs-variable,
+.light .hljs-template-variable,
+.light .hljs-attribute {
+  color: oklch(0.46 0.14 40);
+}
+.light .hljs-tag,
+.light .hljs-name,
+.light .hljs-selector-id,
+.light .hljs-selector-class {
+  color: oklch(0.46 0.15 15);
+}
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-literal,
