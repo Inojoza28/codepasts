@@ -21,7 +21,7 @@ export type ExportSelection =
   | { kind: "snippets"; snippetIds: string[] }
   | { kind: "custom"; folderIds: string[]; snippetIds: string[] };
 
-export function useCodePast() {
+export function useDevFolder() {
   const [folders, setFolders] = useState<Folder[]>([]);
   const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [ready, setReady] = useState(false);
@@ -290,4 +290,4 @@ export function useCodePast() {
   };
 }
 
-export type CodePastApi = ReturnType<typeof useCodePast>;
+export type DevFolderApi = ReturnType<typeof useDevFolder>;

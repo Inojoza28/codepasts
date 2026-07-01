@@ -1,7 +1,9 @@
 import type { Folder, Snippet } from "./types";
 
-const SNIPPETS_KEY = "codepast.snippets.v1";
-const FOLDERS_KEY = "codepast.folders.v1";
+const SNIPPETS_KEY = "devfolder.snippets.v1";
+const LEGACY_SNIPPETS_KEY = "codepast.snippets.v1";
+const FOLDERS_KEY = "devfolder.folders.v1";
+const LEGACY_FOLDERS_KEY = "codepast.folders.v1";
 
 function safeParse<T>(raw: string | null, fallback: T): T {
   if (!raw) return fallback;
@@ -15,7 +17,15 @@ function safeParse<T>(raw: string | null, fallback: T): T {
 export const storage = {
   loadSnippets(): Snippet[] {
     if (typeof window === "undefined") return [];
-    return safeParse<Snippet[]>(localStorage.getItem(SNIPPETS_KEY), []);
+    const current = safeParse<Snippet[] | null>(localStorage.getItem(SNIPPETS_KEY), null);
+    if (current) return current;
+
+    const legacy = safeParse<Snippet[]>(localStorage.getItem(LEGACY_SNIPPETS_KEY), []);
+    if (legacy.length > 0) {
+      localStorage.setItem(SNIPPETS_KEY, JSON.stringify(legacy));
+      localStorage.removeItem(LEGACY_SNIPPETS_KEY);
+    }
+    return legacy;
   },
   saveSnippets(snippets: Snippet[]) {
     if (typeof window === "undefined") return;
@@ -23,7 +33,15 @@ export const storage = {
   },
   loadFolders(): Folder[] {
     if (typeof window === "undefined") return [];
-    return safeParse<Folder[]>(localStorage.getItem(FOLDERS_KEY), []);
+    const current = safeParse<Folder[] | null>(localStorage.getItem(FOLDERS_KEY), null);
+    if (current) return current;
+
+    const legacy = safeParse<Folder[]>(localStorage.getItem(LEGACY_FOLDERS_KEY), []);
+    if (legacy.length > 0) {
+      localStorage.setItem(FOLDERS_KEY, JSON.stringify(legacy));
+      localStorage.removeItem(LEGACY_FOLDERS_KEY);
+    }
+    return legacy;
   },
   saveFolders(folders: Folder[]) {
     if (typeof window === "undefined") return;

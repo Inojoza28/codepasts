@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const SNIPPET_DND_TYPE = "application/x-codepast-snippet";
+export const SNIPPET_DND_TYPE = "application/x-devfolder-snippet";
 
 interface Props {
   snippet: Snippet;

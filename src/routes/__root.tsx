@@ -7,7 +7,7 @@ import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/jetbrains-mono/400.css";
 
-import logoSrc from "@/assets/logo_codepast.png";
+import logoSrc from "@/assets/logo_devfolder.png";
 
 import appCss from "../styles.css?url";
 import { reportError } from "../lib/error-reporting";
@@ -77,13 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CodePast — Snippet manager for developers" },
+      { title: "DevFolder — Snippet manager for developers" },
       {
         name: "description",
         content:
           "Minimal, local-first snippet manager. Save, organize and search your code by language and folder.",
       },
-      { property: "og:title", content: "CodePast — Snippet manager for developers" },
+      { property: "og:title", content: "DevFolder — Snippet manager for developers" },
       {
         property: "og:description",
         content:
@@ -91,7 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "CodePast — Snippet manager for developers" },
+      { name: "twitter:title", content: "DevFolder — Snippet manager for developers" },
       { name: "description", content: "Snippet Sanctuary is a minimalist code snippet manager for storing, organizing, and quickly accessing programming code." },
       { property: "og:description", content: "Snippet Sanctuary is a minimalist code snippet manager for storing, organizing, and quickly accessing programming code." },
       { name: "twitter:description", content: "Snippet Sanctuary is a minimalist code snippet manager for storing, organizing, and quickly accessing programming code." },

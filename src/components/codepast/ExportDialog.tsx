@@ -12,12 +12,12 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { CodePastApi, ExportSelection } from "@/hooks/useCodePast";
+import type { DevFolderApi, ExportSelection } from "@/hooks/useDevFolder";
 
 interface Props {
   open: boolean;
   onOpenChange: (v: boolean) => void;
-  api: CodePastApi;
+  api: DevFolderApi;
 }
 
 type Tab = "all" | "folders" | "snippets";
@@ -115,9 +115,9 @@ export function ExportDialog({ open, onOpenChange, api }: Props) {
         return;
       }
       const date = new Date().toISOString().slice(0, 10);
-      let filename = "codepast-completo";
-      if (tab === "folders") filename = `codepast-pastas-${payload.folders.length}`;
-      else if (tab === "snippets") filename = `codepast-snippets-${payload.snippets.length}`;
+      let filename = "devfolder-completo";
+      if (tab === "folders") filename = `devfolder-pastas-${payload.folders.length}`;
+      else if (tab === "snippets") filename = `devfolder-snippets-${payload.snippets.length}`;
 
       const blob = new Blob([JSON.stringify(payload, null, 2)], {
         type: "application/json",

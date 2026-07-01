@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Search, Plus, LayoutGrid, List, Moon, Sun } from "lucide-react";
 import { Toaster } from "sonner";
 
-import { useCodePast } from "@/hooks/useCodePast";
+import { useDevFolder } from "@/hooks/useDevFolder";
 import { Sidebar } from "@/components/codepast/Sidebar";
 import { SnippetCard } from "@/components/codepast/SnippetCard";
 import { SnippetEditor } from "@/components/codepast/SnippetEditor";
@@ -12,19 +12,19 @@ import { SnippetsSkeleton } from "@/components/codepast/SnippetsSkeleton";
 import type { Snippet } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-const LAYOUT_STORAGE_KEY = "codepast_layout_mode";
-const THEME_STORAGE_KEY = "codepast_theme";
+const LAYOUT_STORAGE_KEY = "devfolder_layout_mode";
+const THEME_STORAGE_KEY = "devfolder_theme";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CodePast — Gerenciador minimalista de snippets para devs" },
+      { title: "DevFolder — Gerenciador minimalista de snippets para devs" },
       {
         name: "description",
         content:
           "Salve, organize e busque trechos de código por linguagem e pasta. Local-first. Rápido. Limpo.",
       },
-      { property: "og:title", content: "CodePast — Gerenciador de snippets para devs" },
+      { property: "og:title", content: "DevFolder — Gerenciador de snippets para devs" },
       {
         property: "og:description",
         content:
@@ -32,11 +32,11 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
-  component: CodePastPage,
+  component: DevFolderPage,
 });
 
-function CodePastPage() {
-  const api = useCodePast();
+function DevFolderPage() {
+  const api = useDevFolder();
   const [editorOpen, setEditorOpen] = useState(false);
   const [editing, setEditing] = useState<Snippet | null>(null);
   const [layout, setLayout] = useState<"grid" | "list">("grid");

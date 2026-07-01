@@ -50,7 +50,7 @@ export function EmptyState({ onNew, onImport, hasQuery, isFirstRun }: Props) {
             Sua biblioteca de snippets está vazia
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            O CodePast é um gerenciador de snippets local-first. Tudo fica no seu
+            O DevFolder é um gerenciador de snippets local-first. Tudo fica no seu
             navegador — sem contas, sem servidores. Comece criando seu primeiro
             snippet ou importe uma biblioteca existente.
           </p>

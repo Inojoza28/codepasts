@@ -4,7 +4,7 @@ import { RouterProvider } from '@tanstack/react-router'
 import { getRouter } from './router'
 import './styles.css'
 
-const THEME_STORAGE_KEY = 'codepast_theme'
+const THEME_STORAGE_KEY = 'devfolder_theme'
 
 function getInitialTheme() {
   if (typeof window === 'undefined') return 'dark'

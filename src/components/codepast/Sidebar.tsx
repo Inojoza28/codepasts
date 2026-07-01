@@ -17,19 +17,19 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-import type { CodePastApi } from "@/hooks/useCodePast";
+import type { DevFolderApi } from "@/hooks/useDevFolder";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { ExportDialog } from "./ExportDialog";
 import { SNIPPET_DND_TYPE } from "./SnippetCard";
-import logoSrc from "@/assets/logo_codepast.png";
+import logoSrc from "@/assets/logo_devfolder.png";
 
-const FOLDER_DND_TYPE = "application/x-codepast-folder";
-const SIDEBAR_STORAGE_KEY = "codepast_sidebar_collapsed";
+const FOLDER_DND_TYPE = "application/x-devfolder-folder";
+const SIDEBAR_STORAGE_KEY = "devfolder_sidebar_collapsed";
 
 interface Props {
-  api: CodePastApi;
+  api: DevFolderApi;
   onNewSnippet: () => void;
 }
 
@@ -108,13 +108,13 @@ export function Sidebar({ api, onNewSnippet }: Props) {
         <div className="flex items-center gap-2">
           <img
             src={logoSrc}
-            alt="CodePast"
+            alt="DevFolder"
             width={34}
             height={34}
             className="size-[34px] shrink-0"
           />
           {!collapsed && (
-            <h1 className="text-base font-semibold tracking-tight">CodePast</h1>
+            <h1 className="text-base font-semibold tracking-tight">DevFolder</h1>
           )}
         </div>
 
