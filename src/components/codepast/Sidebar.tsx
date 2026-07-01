@@ -118,27 +118,27 @@ export function Sidebar({ api, onNewSnippet }: Props) {
           )}
         </div>
 
-        {collapsed ? (
-          <div className="mt-1">
+        <div className="flex items-center gap-1">
+          {collapsed ? (
             <button
               onClick={() => setCollapsed((value) => !value)}
-              className="rounded-full p-1 text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
+              className="rounded-full p-1 text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
               aria-label={collapsed ? "Expandir barra lateral" : "Recolher barra lateral"}
               title={collapsed ? "Expandir barra lateral" : "Recolher barra lateral"}
             >
               <ChevronRight className="size-4" />
             </button>
-          </div>
-        ) : (
-          <button
-            onClick={() => setCollapsed((value) => !value)}
-            className="rounded-full p-1 text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
-            aria-label={collapsed ? "Expandir barra lateral" : "Recolher barra lateral"}
-            title={collapsed ? "Expandir barra lateral" : "Recolher barra lateral"}
-          >
-            <ChevronLeft className="size-4" />
-          </button>
-        )}
+          ) : (
+            <button
+              onClick={() => setCollapsed((value) => !value)}
+              className="rounded-full p-1 text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+              aria-label={collapsed ? "Expandir barra lateral" : "Recolher barra lateral"}
+              title={collapsed ? "Expandir barra lateral" : "Recolher barra lateral"}
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+          )}
+        </div>
       </div>
 
       <div className={cn("pb-4", collapsed ? "px-0" : "px-4")}>
@@ -367,8 +367,8 @@ export function Sidebar({ api, onNewSnippet }: Props) {
                         "group/item flex w-full items-center rounded-md px-2 py-1.5 text-sm transition-colors",
                         collapsed && "justify-center gap-0",
                         active
-                          ? "bg-white/5 text-foreground"
-                          : "text-muted-foreground hover:bg-white/[0.03] hover:text-foreground",
+                          ? "bg-foreground/5 text-foreground"
+                          : "text-muted-foreground hover:bg-foreground/[0.03] hover:text-foreground",
                         isDropTarget && "bg-primary/10 ring-1 ring-primary/50",
                       )}
                     >
@@ -404,7 +404,7 @@ export function Sidebar({ api, onNewSnippet }: Props) {
                                 setEditingId(f.id);
                                 setEditName(f.name);
                               }}
-                              className="rounded p-1 text-muted-foreground hover:bg-white/10 hover:text-foreground"
+                              className="rounded p-1 text-muted-foreground hover:bg-foreground/10 hover:text-foreground"
                               aria-label="Renomear pasta"
                             >
                               <Pencil className="size-3" />

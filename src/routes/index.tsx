@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Search, Plus, LayoutGrid, List } from "lucide-react";
+import { Search, Plus, LayoutGrid, List, Moon, Sun } from "lucide-react";
 import { Toaster } from "sonner";
 
 import { useCodePast } from "@/hooks/useCodePast";
@@ -13,6 +13,7 @@ import type { Snippet } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 const LAYOUT_STORAGE_KEY = "codepast_layout_mode";
+const THEME_STORAGE_KEY = "codepast_theme";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,6 +40,12 @@ function CodePastPage() {
   const [editorOpen, setEditorOpen] = useState(false);
   const [editing, setEditing] = useState<Snippet | null>(null);
   const [layout, setLayout] = useState<"grid" | "list">("grid");
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window === "undefined") return "dark";
+    const saved = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === "light" || saved === "dark") return saved;
+    return document.documentElement.classList.contains("light") ? "light" : "dark";
+  });
   const importRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -53,6 +60,13 @@ function CodePastPage() {
     if (typeof window === "undefined") return;
     window.localStorage.setItem(LAYOUT_STORAGE_KEY, layout);
   }, [layout]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    document.documentElement.classList.toggle("light", theme === "light");
+    document.documentElement.style.colorScheme = theme;
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
 
   const openNew = () => {
     setEditing(null);
@@ -106,13 +120,23 @@ function CodePastPage() {
               </button>
             )}
           </div>
-          <button
-            onClick={openNew}
-            className="flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground transition-all hover:brightness-110"
-          >
-            <Plus className="size-3.5" />
-            Novo snippet
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setTheme((value) => (value === "dark" ? "light" : "dark"))}
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/70 bg-background/70 text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+              aria-label={theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"}
+              title={theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"}
+            >
+              {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
+            </button>
+            <button
+              onClick={openNew}
+              className="flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground transition-all hover:brightness-110"
+            >
+              <Plus className="size-3.5" />
+              Novo snippet
+            </button>
+          </div>
         </header>
 
         {/* Content */}
