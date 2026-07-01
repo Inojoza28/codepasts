@@ -118,6 +118,17 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
+
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  select,
+  option,
+  summary {
+    cursor: pointer;
+  }
   code,
   pre {
     font-family: var(--font-mono);
