@@ -523,9 +523,9 @@ export function Sidebar({ api, onNewSnippet }: Props) {
                     if (pendingDelete) deleteFolder(pendingDelete.id, "move");
                     setPendingDelete(null);
                   }}
-                  className="rounded-lg border border-border bg-background px-3 py-2 text-left text-sm text-foreground transition-colors hover:bg-accent"
+                  className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-left text-sm text-foreground transition-colors hover:bg-amber-500/20"
                 >
-                  <span className="font-medium">Mover para Todos os snippets</span>
+                  <span className="font-medium text-amber-600 dark:text-amber-400">Mover para Todos os snippets</span>
                   <p className="mt-1 text-xs text-muted-foreground">
                     A pasta some, mas os snippets ficam acessíveis na visão geral.
                   </p>

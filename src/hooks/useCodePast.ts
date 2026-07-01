@@ -36,10 +36,17 @@ export function useCodePast() {
   }, []);
 
   useEffect(() => {
-    if (ready) storage.saveSnippets(snippets);
+    if (!ready) return;
+
+    const timeout = window.setTimeout(() => storage.saveSnippets(snippets), 120);
+    return () => window.clearTimeout(timeout);
   }, [snippets, ready]);
+
   useEffect(() => {
-    if (ready) storage.saveFolders(folders);
+    if (!ready) return;
+
+    const timeout = window.setTimeout(() => storage.saveFolders(folders), 120);
+    return () => window.clearTimeout(timeout);
   }, [folders, ready]);
 
   const addFolder = useCallback((name: string) => {
