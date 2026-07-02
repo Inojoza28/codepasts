@@ -42,6 +42,10 @@ export function SnippetCard({
   const [dragOver, setDragOver] = useState(false);
   const folder = folders.find((f) => f.id === snippet.folderId);
   const langLabel = LANGUAGES.find((l) => l.value === snippet.language)?.label ?? snippet.language;
+  const moveTo = (folderId: string | null) => {
+    if (folderId === snippet.folderId) return;
+    onMove(snippet.id, folderId);
+  };
 
   const copy = async () => {
     try {
@@ -176,13 +180,20 @@ export function SnippetCard({
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuLabel>Mover para</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => onMove(snippet.id, null)}>
+                <MoveMenuItem
+                  current={snippet.folderId === null}
+                  onSelect={() => moveTo(null)}
+                >
                   Sem pasta
-                </DropdownMenuItem>
+                </MoveMenuItem>
                 {folders.map((f) => (
-                  <DropdownMenuItem key={f.id} onClick={() => onMove(snippet.id, f.id)}>
+                  <MoveMenuItem
+                    key={f.id}
+                    current={snippet.folderId === f.id}
+                    onSelect={() => moveTo(f.id)}
+                  >
                     {f.name}
-                  </DropdownMenuItem>
+                  </MoveMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
@@ -218,6 +229,29 @@ export function SnippetCard({
         onConfirm={() => onDelete(snippet.id)}
       />
     </>
+  );
+}
+
+function MoveMenuItem({
+  current,
+  onSelect,
+  children,
+}: {
+  current: boolean;
+  onSelect: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <DropdownMenuItem
+      onSelect={onSelect}
+      aria-current={current ? "true" : undefined}
+      className="gap-2"
+    >
+      <span className="flex size-3.5 shrink-0 items-center justify-center">
+        {current && <Check className="size-3.5 text-emerald-500" aria-hidden />}
+      </span>
+      <span className="min-w-0 flex-1 truncate">{children}</span>
+    </DropdownMenuItem>
   );
 }
 
