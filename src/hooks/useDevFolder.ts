@@ -245,7 +245,7 @@ export function useDevFolder() {
     else if (view.kind === "folder")
       list = list.filter((s) => s.folderId === view.folderId);
     else if (view.kind === "recent")
-      list = [...list].sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 20);
+      list = [...list].sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 4);
 
     const q = query.trim().toLowerCase();
     if (q) {
