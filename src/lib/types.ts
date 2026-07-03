@@ -85,6 +85,7 @@ export interface Snippet {
   language: Language;
   folderId: string | null;
   favorite: boolean;
+  hidden?: boolean;
   createdAt: number;
   updatedAt: number;
 }

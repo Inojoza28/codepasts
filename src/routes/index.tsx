@@ -191,6 +191,7 @@ function DevFolderPage() {
                     onEdit={openEdit}
                     onDelete={api.deleteSnippet}
                     onToggleFavorite={api.toggleFavorite}
+                    onToggleHidden={api.toggleSnippetHidden}
                     onMove={api.moveSnippet}
                     onReorder={api.reorderSnippets}
                   />

@@ -115,6 +115,7 @@ export function useDevFolder() {
         language: input.language,
         folderId: input.folderId,
         favorite: false,
+        hidden: false,
         createdAt: now,
         updatedAt: now,
       };
@@ -130,6 +131,10 @@ export function useDevFolder() {
 
   const toggleFavorite = useCallback((id: string) => {
     setSnippets((prev) => prev.map((s) => (s.id === id ? { ...s, favorite: !s.favorite } : s)));
+  }, []);
+
+  const toggleSnippetHidden = useCallback((id: string) => {
+    setSnippets((prev) => prev.map((s) => (s.id === id ? { ...s, hidden: !s.hidden } : s)));
   }, []);
 
   const moveSnippet = useCallback((id: string, folderId: string | null) => {
@@ -283,6 +288,7 @@ export function useDevFolder() {
     upsertSnippet,
     deleteSnippet,
     toggleFavorite,
+    toggleSnippetHidden,
     moveSnippet,
     reorderSnippets,
     exportData,

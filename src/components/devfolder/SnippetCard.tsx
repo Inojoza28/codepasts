@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, Check, Star, Pencil, Trash2, FolderInput, GripVertical } from "lucide-react";
+import { Copy, Check, Star, Pencil, Trash2, FolderInput, GripVertical, Eye, EyeOff } from "lucide-react";
 
 import type { Folder, Snippet } from "@/lib/types";
 import { LANGUAGE_COLORS, LANGUAGES } from "@/lib/types";
@@ -23,6 +23,7 @@ interface Props {
   onEdit: (s: Snippet) => void;
   onDelete: (id: string) => void;
   onToggleFavorite: (id: string) => void;
+  onToggleHidden: (id: string) => void;
   onMove: (id: string, folderId: string | null) => void;
   onReorder: (activeId: string, overId: string) => void;
 }
@@ -33,6 +34,7 @@ export function SnippetCard({
   onEdit,
   onDelete,
   onToggleFavorite,
+  onToggleHidden,
   onMove,
   onReorder,
 }: Props) {
@@ -40,6 +42,7 @@ export function SnippetCard({
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const hidden = !!snippet.hidden;
   const folder = folders.find((f) => f.id === snippet.folderId);
   const langLabel = LANGUAGES.find((l) => l.value === snippet.language)?.label ?? snippet.language;
   const moveTo = (folderId: string | null) => {
@@ -126,32 +129,55 @@ export function SnippetCard({
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => onToggleFavorite(snippet.id)}
-              className={cn(
-                "shrink-0 rounded p-1 transition-colors",
-                snippet.favorite
-                  ? "text-primary"
-                  : "text-muted-foreground/40 hover:text-primary",
-              )}
-              aria-label={snippet.favorite ? "Remover dos favoritos" : "Favoritar"}
-            >
-              <Star
-                className="size-4"
-                fill={snippet.favorite ? "currentColor" : "none"}
-              />
-            </button>
+            <div className="flex shrink-0 items-center gap-1">
+              <button
+                type="button"
+                onClick={() => onToggleHidden(snippet.id)}
+                className={cn(
+                  "rounded p-1 text-muted-foreground/40 transition-colors hover:text-foreground",
+                  hidden && "text-muted-foreground hover:text-foreground",
+                )}
+                aria-label={hidden ? "Mostrar snippet" : "Ocultar snippet"}
+                aria-pressed={hidden}
+                title={hidden ? "Mostrar snippet" : "Ocultar snippet"}
+              >
+                {hidden ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              </button>
+              <button
+                type="button"
+                onClick={() => onToggleFavorite(snippet.id)}
+                className={cn(
+                  "rounded p-1 transition-colors",
+                  snippet.favorite
+                    ? "text-primary"
+                    : "text-muted-foreground/40 hover:text-primary",
+                )}
+                aria-label={snippet.favorite ? "Remover dos favoritos" : "Favoritar"}
+              >
+                <Star
+                  className="size-4"
+                  fill={snippet.favorite ? "currentColor" : "none"}
+                />
+              </button>
+            </div>
           </div>
 
           <div
             onClick={() => onEdit(snippet)}
             className="max-h-40 cursor-pointer overflow-hidden rounded-lg border border-border/60 bg-background/60 p-4"
           >
-            <CodeBlock
-              code={snippet.code}
-              language={snippet.language}
-              maxLines={8}
-            />
+            <div
+              className={cn(
+                "transition-[filter,opacity] duration-300 ease-out",
+                hidden && "select-none blur-[5px] opacity-60",
+              )}
+            >
+              <CodeBlock
+                code={snippet.code}
+                language={snippet.language}
+                maxLines={8}
+              />
+            </div>
           </div>
         </div>
 
