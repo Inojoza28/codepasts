@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { storage, uid } from "@/lib/storage";
 import type { Folder, Language, Snippet } from "@/lib/types";
 
+const RECENT_SNIPPETS_LIMIT = 4;
+const RECENT_SNIPPETS_MAX_AGE_MS = 2 * 24 * 60 * 60 * 1000;
+
 export type View =
   | { kind: "all" }
   | { kind: "favorites" }
@@ -244,8 +247,13 @@ export function useDevFolder() {
     if (view.kind === "favorites") list = list.filter((s) => s.favorite);
     else if (view.kind === "folder")
       list = list.filter((s) => s.folderId === view.folderId);
-    else if (view.kind === "recent")
-      list = [...list].sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 4);
+    else if (view.kind === "recent") {
+      const cutoff = Date.now() - RECENT_SNIPPETS_MAX_AGE_MS;
+      list = [...list]
+        .filter((s) => s.updatedAt >= cutoff)
+        .sort((a, b) => b.updatedAt - a.updatedAt)
+        .slice(0, RECENT_SNIPPETS_LIMIT);
+    }
 
     const q = query.trim().toLowerCase();
     if (q) {
